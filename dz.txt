@@ -1,0 +1,133 @@
+1. Спочатку буде виведено "Call me foo!", а потым помилка: "foo() is not a function". Спочатку буде виконана функція, що виводить повідомлення "Call me foo!" тому, що вона предславлена як function declaration і хоститься вище змінних, оголошених за допомогою var у даному скоупі. Помилка: "foo() is not a function" виводиться, через те, що в змынну foo було записано число. 
+
+2. Функція поверне undefined. Потрібно добавити return у ф-ю bar для правильного результату. 
+
+3. В консоль будуть виведені значення 5, 1, 5 і undefined. Змінна x (x=5) і console.log(x) знаходяться в одному скоупі тому і виводиться 5. console.log(foo(8)) викличе ф-ю "function foo()" а не ф-ю "function foo(a)", тому що ф-я, яка вижче буде перезаписана. Перший Console.log(x) функції foo() виведе 1, бо змінна x оголошена в одному скоупі і дорівнює 1. Потім ф-я bar() перезаписує змінну х в батьківському скоупі, тому далі буде виведено 5.
+
+4. Результатом виконання функції lock буде функція function (y) { return x * y; }, де х=8. Коли буде виконана функція locked(4), то результат буде 32 (8*4). Після зміни значення а результат не зміниться, тому що початкове значення а=8 буде замкнено у функції lock().
+
+5. Будуть виведені значення 6, 6, NAN. Якщо у функцію буде передано більше аргументів, ніж вона приймає, то всі наступні не будуть братися до уваги. Якщо менше - то для тих, яких не вистачає будуть присвоєнні значення undefined. Тому в останньому виклику з одним аргументом отримаємо результат NAN (2 * undefined = NAN)
+
+Завдання *
+function multiply() {  
+	var result = 1;
+	for(let x = 0; x < arguments.length; x++){
+		  result *= arguments[x];
+		  
+	}
+return result;
+}
+
+console.log(multiply(2, 3)); // => ?  
+console.log(multiply(2, 3, 4)); // => ?  
+console.log(multiply(2)); // => ? 
+
+
+
+
+Змусьте пірата привітатись, не додаючи йому ніяких функцій.
+const person = {  
+  name: "John",
+  surname: "Doe",
+  greet: function(greet) {
+    console.log(`${greet}, my name is ${this.name} ${this.surname}`);
+  }
+};
+
+person.greet("Hello"); // => Hello, my name is John Doe
+
+const pirate = {  
+  name: "Billy",
+  surname: "Bones",
+  greet: person.greet
+};
+
+pirate.greet('Hello');
+
+
+
+Пірат хоче навчити Пітера лаятись, але так, щоб ніхто не знав, що у Пітера є для цього спеціальний метод.
+
+const pirate = {  
+  name: "Billy",
+  surname: "Bones",
+  swear: function() {
+    console.log(`My name is ${this.name} ${this.surname}, you bloody bastard!`);
+  }
+};
+
+const kid = {  
+  name: "Peter",
+  surname: "Pan"
+};
+
+var swearByKid = function() {
+		kid.swear = pirate.swear;
+		kid.swear();
+};
+
+setTimeout(function() {  
+  swearByKid();
+}, 1000);
+
+
+
+Практичні задачі
+
+
+Створити функцію обчислення факторіалу.
+
+function factorial(n) {
+  if (n === 0 || n === 1){
+    return 1;
+  }
+  for (let i = n - 1; i >= 1; i--) {
+    n *= i;
+  }
+  return n;
+}
+factorial(5);
+
+
+Створити функцію обчислення перших n чиесл Фібоначчі.
+
+function fib(n) {
+	var arr = [];
+	for (let i = 0; i <= n; i++) {
+		if (i === 0) {
+			arr[i] = 0;
+		} else if (i === 1) {
+			arr[i] = 1;
+		} else 
+		arr[i] = arr[i-1] + arr[i-2];
+	}
+	console.log(arr);
+}
+fib(16);
+
+
+*Написати рекурсивну функцію, що перевіряє чи число є точною степінню двійки.
+
+	var isPowOfTwo = function(x){
+		if (x == 1){
+				console.log("Yes, it is")
+			} else if ((x < 1) || (x > 1 && x < 2)){
+				console.log("No, it is not");
+			} else return isPowOfTwo(x/2);
+	}
+	
+	isPowOfTwo(100);
+
+*Написати рекурсивну функцію, що рахує суму цифр заданого числа
+
+var sum = 0;
+function add(number){
+	sum += number % 10;
+	number = Math.floor(number/10);
+	if (number>0){
+		add(number);
+	} else 
+	console.log(sum);
+};
+
+add(12324243562);
